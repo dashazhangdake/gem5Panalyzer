@@ -30,16 +30,14 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-
-<<<<<<< HEAD
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/dashazhangdake/gem5Panalyzer">
-    <img src="images/logo.png" alt="Logo" width="640" height="640">
+    <img src="images/logo.PNG" alt="Logo" width="640" height="640">
   </a>
 
-  <h3 align="center">A Light-weight tool for Early-stage Architectural Reliability Evaluation & Prediction: gem5Panalyzer</h3>
+  <h3 align="center">gem5Panalyzer: a Vulnerbility Calculator</h3>
 
   <p align="center">
     YOUR_SHORT_DESCRIPTION
@@ -56,9 +54,6 @@
 </p>
 
 
-
-=======
->>>>>>> c01b9742e5ad5312c943d028e70786f3a3b97328
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
@@ -78,8 +73,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 We built a light-weight tool Gem5Panalyzer to assess system vulnerability at early design stages. Current release of Gem5Panalyzer can compute Program Vulnerability Factors (PVF) of Architectural Registers, and Architectural Vulnerability Factors (AVFs) of Physical Register Files. This tool also provides interfaces connecting reliability analysis with Deep Learning studies
 
 
@@ -108,11 +101,6 @@ npm install npm@latest -g
 ```sh
 git clone https://github.com/dashazhangdake/gem5Panalyzer.git
 ```
-2. Install NPM packages
-```sh
-npm install
-```
-
 
 
 <!-- USAGE EXAMPLES -->
@@ -143,18 +131,15 @@ Contributions are what make the open source community such an amazing place to b
 5. Open a Pull Request
 
 
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+HQ - hao.qiu@vanderbilt.edu
 
 Project Link: [https://github.com/dashazhangdake/gem5Panalyzer](https://github.com/dashazhangdake/gem5Panalyzer)
 
