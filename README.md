@@ -31,6 +31,7 @@
 
 
 
+<<<<<<< HEAD
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -56,6 +57,8 @@
 
 
 
+=======
+>>>>>>> c01b9742e5ad5312c943d028e70786f3a3b97328
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
