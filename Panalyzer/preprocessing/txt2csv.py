@@ -18,8 +18,12 @@ def txt2csv(trace_name, trace_dir='TraceExamples', arch='arm32'):
                              Columns of converted trace file in csv format are defined as:
         ['Tick', 'CPU_ID', 'PC', 'INST', 'DST1', 'DST2', 'SRC1', 'SRC2', 'OFFSET', 'TYPE', 'DATA', #'ADDR'#]
         """
+        lineoffset = []
+        offset = 0
         for i, line in enumerate(open(trace_file)):
-            line.replace('fp', 'r11').replace('sp', 'r13').replace('lr', 'r14').replace('pc', 'r15')  # Rename registers
+            lineoffset.append(offset)
+            offset = offset + len(line)
+            line = line.replace('fp', 'r11').replace('sp', 'r13').replace('lr', 'r14').replace('pc', 'r15')  # Rename registers
             # with specific names to avoid unnecessary troubles in subsequent modules
             split_line = line.strip().split(":")  # Split raw trace line with comma delimiter
             current_tick = split_line[0]  # Tick
@@ -46,7 +50,8 @@ def txt2csv(trace_name, trace_dir='TraceExamples', arch='arm32'):
             writer.writerow([current_tick, current_cpu, current_pc, current_op, current_d1, current_d2,
                             current_s1, current_s2, current_offset, current_access_type, current_data])
     inst_length = i
-    return inst_length
+    print ('csvdone')
+    return inst_length, lineoffset
 
 
 if __name__ == "__main__":  # Test

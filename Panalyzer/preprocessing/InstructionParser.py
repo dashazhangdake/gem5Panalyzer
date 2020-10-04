@@ -20,7 +20,9 @@ class InstructionParser:
             '''
                 start from L = 2 
             '''
-            if len(current_operands) == 2:
+            if len(current_operands) == 1:
+                res['s1'] = current_operands[0]
+            elif len(current_operands) == 2:
                 # Scenarios that imm values , i. e. Offset in L/R ops can be a concern when len(Op)=2
                 if "ldr" in self.op:  # load Insts with only two operands
                     if "[" in current_operands[1]:  # ldr r3, [r3, #13]！

@@ -27,7 +27,7 @@ class csv2np:
         tick_info['op'] = op_list
         return tick_info
 
-    def arm32detailed(self):
+    def arm32detailed(self, lineoffset):
         detailded_info = {'wr': None, 'regval': None, 'tick': None, 'masking': None, 'src1': None, 'src2': None,
                           'op': None}
         # Tick and opname
@@ -39,11 +39,11 @@ class csv2np:
         wr_list = np.full([self.num_reg, 2, self.num_lines], False, dtype=bool)
         reg_val_table = np.zeros([self.num_reg, self.num_lines], dtype=np.int64)
         with open(self.trace_csv, mode='r') as info_csv:
+            # info_csv.seek(lineoffset[self.start_point])  # Try to use f.seek but failed
             info_window = islice(info_csv, self.start_point, self.start_point + self.num_lines)
             info_reader = csv.reader(info_window)
             for i, row in enumerate(info_reader):  # Tick[i], or ith row in file
                 tick_list[i] = row[0]  # Tick number list: an 1 x line_number np array
-
                 op_id = row[3]
                 op_list.append(op_id)  # Opname is just a simple list of strings
 
@@ -67,6 +67,13 @@ class csv2np:
                         wr_extractor(reg_name, op_dst1, op_dst2, op_src1, op_src2, op_id, data, val_prev)[1]
                     reg_val_table[k, i] = \
                         wr_extractor(reg_name, op_dst1, op_dst2, op_src1, op_src2, op_id, data, val_prev)[2]
+            # if len(src1_list) <= 0:
+            #     src1_list.append('dummy')
+            # if len(src2_list) <= 0:
+            #     src2_list.append('dummy')
+            # if len(op_list) <= 0:
+            #     op_list.append('dummy')
+
             m_table = arm32masking_calculator(self.num_lines, op_list, src1_list, src2_list, self.num_reg,
                                               reg_val_table).lmasking_calculator()
             detailded_info['wr'] = wr_list

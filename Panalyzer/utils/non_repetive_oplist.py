@@ -3,7 +3,7 @@ import re
 import os
 
 '''
-    This script finds all non-repetitive opcodes and write them to a csv_file 
+    This handy script finds all non-repetitive opcodes and write them to a csv_file 
     The extracted opcodes are primarily used in design the m_calculator
 '''
 

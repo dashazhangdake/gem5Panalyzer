@@ -13,7 +13,7 @@ Slicing Steps:
 import sys
 
 
-def window_slicer(f_length, threads, n_window, n_sample):
+def window_slicer(f_length, threads, n_window, n_sample=1):
     if threads > n_window:
         print("Number of threads should be smaller than the number of analyzing windows")
         sys.exit(0)

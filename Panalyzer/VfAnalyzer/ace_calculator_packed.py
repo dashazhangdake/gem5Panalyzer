@@ -9,9 +9,9 @@ class ace_calculators:
         self.fin = file_in
         self.reg_num = reg_count
 
-    def ace_calculator_detailed(self, start, length, sample_ratio):
+    def ace_calculator_detailed(self, start, length, sample_ratio, lineoffset):
         reg_n = self.reg_num
-        info = csv2np(self.fin, start, length, self.reg_num).arm32detailed()
+        info = csv2np(self.fin, start, length, self.reg_num).arm32detailed(lineoffset)
 
         wr_hist = info['wr']
         t_hist = info['tick']
@@ -22,6 +22,7 @@ class ace_calculators:
         sample_count = int(sample_ratio * window_size)
         ace_current_window = np.zeros([reg_n + 1, sample_count], dtype=np.int64)
         for i in range(reg_n):
+            # print('reg: ', i)
             ace_ith_temp = AvfAnalyzer(wr_hist[i, :, :], t_hist, m_hist[i, :]).ace_calculator_wr()[1, :]
             sample_idx = np.random.choice(window_size, sample_count)
             sampled_ace_ith = ace_ith_temp[sample_idx]
@@ -35,6 +36,32 @@ class ace_calculators:
 
         return ace_current_window
 
+    def ace_calculator_quanta(self, start, length, lineoffset):
+        reg_n = self.reg_num
+        info = csv2np(self.fin, start, length, self.reg_num).arm32detailed(lineoffset)
+
+        wr_hist = info['wr']
+        t_hist = info['tick']
+        m_hist = info['masking']
+
+        window_size = length
+
+        aceq_current_window = np.zeros([reg_n + 1, 1], dtype=np.int64)
+        for i in range(reg_n):
+            ace_ith_temp = AvfAnalyzer(wr_hist[i, :, :], t_hist, m_hist[i, :]).ace_calculator_wr()[1, :]
+            aceq_current_window[i, 0] = ace_ith_temp[-1]
+            aceq_current_window[-1, 0] = t_hist[-1]
+            # sample_idx = np.random.choice(window_size, sample_count)
+            # sampled_ace_ith = ace_ith_temp[sample_idx]
+            # ace_current_window[i, :] = sampled_ace_ith
+            #
+            # # Reorder ace current window
+            # ace_current_window[i, -1] = ace_ith_temp[-1]
+            # ace_current_window[-1, :] = t_hist[sample_idx]
+            # ace_current_window[-1, -1] = t_hist[-1]
+            # ace_current_window = np.sort(ace_current_window, axis=1, kind='mergesort')
+        return aceq_current_window
+
 
 if __name__ == "__main__":
     reg_num = 16
@@ -44,6 +71,6 @@ if __name__ == "__main__":
     # T = csv2np(csv_dir / fname, 0, 1000, 16).arm32detailed()
     # details = csv2np(csv_dir / fname, 0, 1000, 16).arm32detailed()
     # print(len(details['tick']))
-    ace_test = ace_calculators(csv_dir / fname, reg_num).ace_calculator_detailed(1000, 100, sample_ratio=0.1)
+    ace_test = ace_calculators(csv_dir / fname, reg_num).ace_calculator_quanta(1000, 100, [])
     print(ace_test)
     print(np.shape(ace_test))

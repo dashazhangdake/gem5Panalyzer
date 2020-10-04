@@ -1,0 +1,3 @@
+27117316
+threads:  6  ;samples:  6000
+Time has passed:  1074.1988062 seconds
